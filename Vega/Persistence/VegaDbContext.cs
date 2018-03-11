@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Vega.Models;
 
 namespace Vega.Persistence
 {
@@ -13,5 +14,7 @@ namespace Vega.Persistence
 	    {
 		    
 	    }
+
+	    public DbSet<Make> Makes { get; set; }
     }
 }
