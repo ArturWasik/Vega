@@ -38,6 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ClientApp\app\services\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 

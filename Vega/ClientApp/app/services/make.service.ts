@@ -9,6 +9,6 @@ export class MakeService {
 
   getMakes() {
 	  return this.http.get('/api/makes')
-		  .map(res => res > json());
+		  .map(res => res.json());
   }
 }
