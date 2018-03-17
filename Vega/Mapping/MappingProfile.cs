@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Vega.Controllers.Resources;
-using Vega.Models;
+using Vega.Core.Models;
 
 namespace Vega.Mapping
 {
