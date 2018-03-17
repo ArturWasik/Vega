@@ -30,14 +30,7 @@ namespace Vega.Mapping
 				.AfterMap((vr, v) =>
 				{
 					// Remove unselected features
-					var removedFeatures = new List<VehicleFeature>();
-					foreach (var f in v.Features)
-					{
-						if (!vr.Features.Contains(f.FeatureId))
-						{
-							removedFeatures.Add(f);
-						}
-					}
+					var removedFeatures = v.Features.Where(f => !vr.Features.Contains(f.FeatureId));
 
 					foreach (var f in removedFeatures)
 					{
@@ -45,14 +38,17 @@ namespace Vega.Mapping
 					}
 
 					// Add new features
-					foreach (var id in vr.Features)
-					{
-						if (!v.Features.Any(f => f.FeatureId == id))
+					var addedFeatures = vr.Features.Where(id => !v.Features
+						.Any(f => f.FeatureId == id))
+						.Select(id => new VehicleFeature
 						{
-							v.Features.Add(new VehicleFeature { FeatureId = id});
-						}
-					}
+							FeatureId = id
+						});
 
+					foreach (var f in addedFeatures)
+					{
+						v.Features.Add(f);
+					}
 				});
 		}
 	}
