@@ -31,6 +31,7 @@ import { AppErrorHandler } from './components/app/app.error-handler';
 		RouterModule.forRoot([
 			{ path: '', redirectTo: 'home', pathMatch: 'full' },
 			{ path: 'vehicles/new', component: VehicleFormComponent },
+			{ path: 'vehicles/:id', component: VehicleFormComponent },
 			{ path: 'home', component: HomeComponent },
 			{ path: 'counter', component: CounterComponent },
 			{ path: 'fetch-data', component: FetchDataComponent },
