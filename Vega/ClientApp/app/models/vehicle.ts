@@ -5,7 +5,7 @@ export interface IVehicle {
 	model: IKeyValuePair;
 	make: IKeyValuePair;
 	isRegistered: boolean;
-	features: IKeyValuePair;
+	features: IKeyValuePair[];
 	contact: IContact;
 	lastUpdate: string;
 }
