@@ -10,8 +10,11 @@ const treeShakableModules = [
     '@angular/forms',
     '@angular/http',
     '@angular/platform-browser',
-    '@angular/platform-browser-dynamic',
-    '@angular/router',
+	'@angular/platform-browser-dynamic',
+	'ng2-toasty',
+	'ng2-toasty/bundles/style-bootstrap.css',
+	'@angular/router',
+	'underscore',
     'zone.js',
 ];
 const nonTreeShakableModules = [

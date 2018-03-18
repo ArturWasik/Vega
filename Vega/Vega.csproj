@@ -34,11 +34,25 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\app\components\app\app.error-handler.ts" />
+    <None Remove="ClientApp\app\models\saveVehicle.ts" />
+    <None Remove="ClientApp\app\models\shared.ts" />
+    <None Remove="ClientApp\app\models\vehicle.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Update="Microsoft.NETCore.App" Version="2.0.5" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\components\app\app.error-handler.ts" />
+    <TypeScriptCompile Include="ClientApp\app\models\saveVehicle.ts" />
+    <TypeScriptCompile Include="ClientApp\app\models\shared.ts" />
+    <TypeScriptCompile Include="ClientApp\app\models\vehicle.ts" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
