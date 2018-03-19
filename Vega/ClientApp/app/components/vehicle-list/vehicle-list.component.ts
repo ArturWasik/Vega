@@ -9,7 +9,7 @@ import { IKeyValuePair } from '../../models/shared';
 	styleUrls: ['./vehicle-list.component.css']
 })
 export class VehicleListComponent implements OnInit {
-	vehicles: IVehicle[];
+	queryResult: any = {};
 	makes: IKeyValuePair[];
 	query: any = {
 		pageSize: 3
@@ -34,7 +34,7 @@ export class VehicleListComponent implements OnInit {
 
 	private populateVehicles() {
 		this.vehicleService.getVehicles(this.query)
-			.subscribe(vehicles => this.vehicles = vehicles);
+			.subscribe(result => this.queryResult = result);
 	}
 
 	onFilterChange() {
