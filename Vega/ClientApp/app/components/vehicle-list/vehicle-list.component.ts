@@ -11,7 +11,9 @@ import { IKeyValuePair } from '../../models/shared';
 export class VehicleListComponent implements OnInit {
 	vehicles: IVehicle[];
 	makes: IKeyValuePair[];
-	query: any = {};
+	query: any = {
+		pageSize: 3
+	};
 	columns = [
 		{title: 'Id'},
 		{title: 'Contact Name', key: 'contactName', isSortable: true},
@@ -51,6 +53,11 @@ export class VehicleListComponent implements OnInit {
 			this.query.sortBy = columnName;
 			this.query.isSortAscending = true;
 		}
+		this.populateVehicles();
+	}
+
+	onPageChange(page: any) {
+		this.query.page = page;
 		this.populateVehicles();
 	}
 }

@@ -26,8 +26,6 @@ namespace Vega.Controllers
 		[HttpPost]
 		public async Task<IActionResult> CreateVehicle([FromBody] SaveVehicleResource saveVehicleResource)
 		{
-			throw new Exception();
-
 			if (!ModelState.IsValid)
 			{
 				return BadRequest(ModelState);

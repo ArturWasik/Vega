@@ -38,7 +38,7 @@ export class VehicleFormComponent implements OnInit {
 		private tostyService: ToastyService) {
 
 		route.params.subscribe(p => {
-			this.vehicle.id = +p['id'];
+			this.vehicle.id = +p['id'] || 0;
 		});
 	}
 
