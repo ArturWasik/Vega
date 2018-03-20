@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Vega.Core.Models;
 
 namespace Vega.Core
@@ -8,5 +9,6 @@ namespace Vega.Core
 		Task<Vehicle> GetVehicle(int id, bool includeRelated = true);
 		void Add(Vehicle vehicle);
 		void Remove(Vehicle vehicle);
+		Task<QueryResult<Vehicle>> GetVehicles(VehicleQuery vehicleQuery);
 	}
 }
