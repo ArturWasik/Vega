@@ -15,8 +15,10 @@ namespace Vega.Controllers
 {
 	[Route("/api/vehicles/{vehicleId}/photos")]
     public class PhotosController : Controller
-    {
-	    private readonly IHostingEnvironment host;
+	{
+		private readonly int MAX_BYTES = 10 * 1024 * 2024;
+		private readonly string[] ACCEPTED_FILE_TYPES = {".jpg", "jpeg", ".png"};
+		private readonly IHostingEnvironment host;
 	    private readonly IVehicleRepository repository;
 	    private readonly IUnitOfWork unitOfWork;
 	    private readonly IMapper mapper;
@@ -39,11 +41,31 @@ namespace Vega.Controllers
 				return NotFound();
 			}
 
+			if (file == null)
+			{
+				return BadRequest("Null file");
+			}
+
+			if (file.Length == 0)
+			{
+				return BadRequest("Empty file");
+			}
+
+			if (file.Length > MAX_BYTES)
+			{
+				return BadRequest("Max file size exceeded");
+			}
+
 			var uploadsFolderPath = Path.Combine(host.WebRootPath, "uploads");
 
 			if (!Directory.Exists(uploadsFolderPath))
 			{
 				Directory.CreateDirectory(uploadsFolderPath);
+			}
+
+			if (ACCEPTED_FILE_TYPES.Any(s => s == Path.GetExtension(file.FileName)))
+			{
+				return BadRequest("Invalid file type.");
 			}
 
 			var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
