@@ -63,7 +63,7 @@ export class ViewVehicleComponent implements OnInit {
 	uploadPhoto() {
 		var nativeElement: any = this.fileInput.nativeElement;
 
-		this.progressService.uploadProgress
+		this.progressService.startTracking()
 			.subscribe(progress => {
 				console.log(progress);
 
