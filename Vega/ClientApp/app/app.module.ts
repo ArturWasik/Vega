@@ -20,6 +20,7 @@ import { VehicleService } from './services/vehicle.service';
 import { PhotoService } from './services/photo.service';
 import { ProgressService } from './services/progress.service';
 import { BrowserXhrWithProgress } from './services/progress.service';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
 	declarations: [
@@ -55,7 +56,8 @@ import { BrowserXhrWithProgress } from './services/progress.service';
 		{ provide: BrowserXhr, useClass: BrowserXhrWithProgress },
 		VehicleService,
 		PhotoService,
-		ProgressService
+		ProgressService,
+		AuthService
 	]
 })
 export class AppModuleShared {
