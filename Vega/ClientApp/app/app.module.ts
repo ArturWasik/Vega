@@ -21,6 +21,7 @@ import { PhotoService } from './services/photo.service';
 import { ProgressService } from './services/progress.service';
 import { BrowserXhrWithProgress } from './services/progress.service';
 import { AuthService } from './services/auth.service';
+import { CallbackComponent } from './components/callback/callback.component';
 
 @NgModule({
 	declarations: [
@@ -32,7 +33,8 @@ import { AuthService } from './services/auth.service';
 		VehicleFormComponent,
 		VehicleListComponent,
 		PaginationComponent,
-		ViewVehicleComponent
+		ViewVehicleComponent,
+		CallbackComponent
 	],
 	imports: [
 		CommonModule,
