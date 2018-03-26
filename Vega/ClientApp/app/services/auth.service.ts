@@ -6,16 +6,20 @@ import * as auth0 from 'auth0-js';
 @Injectable()
 export class AuthService {
 
+  profile: any;
+
   auth0 = new auth0.WebAuth({
     clientID: 'dPSbfQ454nyOZsbBSI3GkUgWVECCH3nt',
     domain: 'itsolutionsproject.eu.auth0.com',
     responseType: 'token id_token',
     audience: 'https://itsolutionsproject.eu.auth0.com/userinfo',
     redirectUri: 'http://localhost:63370/callback',
-    scope: 'openid'
+    scope: 'openid email profile'
   });
 
-  constructor(public router: Router) { }
+  constructor(public router: Router) {
+    this.profile = JSON.parse(localStorage.getItem('profile') || '{}');
+  }
 
   public login(): void {
     this.auth0.authorize();
@@ -25,6 +29,9 @@ export class AuthService {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         window.location.hash = '';
+
+        this.getProfile(authResult.accessToken);
+
         this.setSession(authResult);
         this.router.navigate(['/home']);
       } else if (err) {
@@ -47,6 +54,10 @@ export class AuthService {
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
+    localStorage.removeItem('profile');
+
+    this.profile = null;
+
     // Go back to the home route
     this.router.navigate(['/']);
   }
@@ -56,5 +67,22 @@ export class AuthService {
     // Access Token's expiry time
     const expiresAt = JSON.parse(localStorage.getItem('expires_at') || '{}');
     return new Date().getTime() < expiresAt;
+  }
+
+  public getProfile(accessToken: any): void {
+    //const accessToken = localStorage.getItem('access_token');
+    if (!accessToken) {
+      throw new Error('Access Token must exist to fetch profile');
+    }
+
+    const self = this;
+    this.auth0.client.userInfo(accessToken, (err, profile) => {
+      if (profile) {
+        profile = profile;
+        console.log(profile);
+        localStorage.setItem('profile', JSON.stringify(profile));
+      }
+
+    });
   }
 }
