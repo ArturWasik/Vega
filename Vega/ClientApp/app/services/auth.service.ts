@@ -20,15 +20,8 @@ export class AuthService {
 	});
 
 	constructor(public router: Router) {
-		this.profile = JSON.parse(localStorage.getItem('profile') || '{}');
 
-		var token = localStorage.getItem('token');
-
-		if (token) {
-			var jwtHelper = new JwtHelper();
-			var decodedToken = jwtHelper.decodeToken(token);
-			this.roles = decodedToken['https://vega.com/roles'];
-		}
+		this.readUserFromLocalStorage();
 	}
 
 	public isInRole(roleName: any) {
@@ -44,10 +37,6 @@ export class AuthService {
 			if (authResult && authResult.accessToken && authResult.idToken) {
 				window.location.hash = '';
 
-				var jwtHelper = new JwtHelper();
-				var decodedToken = jwtHelper.decodeToken(authResult.idToken || '{}');
-				this.roles = decodedToken['https://vega.com/roles'];
-
 				this.getProfile(authResult.accessToken);
 
 				this.setSession(authResult);
@@ -57,6 +46,19 @@ export class AuthService {
 				console.log(err);
 			}
 		});
+	}
+
+	private readUserFromLocalStorage() {
+
+		this.profile = JSON.parse(localStorage.getItem('profile') || '{}');
+
+		var token = localStorage.getItem("id_token");
+
+		if (token) {
+			var jwtHelper = new JwtHelper();
+			var decodedToken = jwtHelper.decodeToken(token);
+			this.roles = decodedToken['https://vega.com/roles'];
+		}
 	}
 
 	private setSession(authResult: any): void {
@@ -94,14 +96,12 @@ export class AuthService {
 			throw new Error('Access Token must exist to fetch profile');
 		}
 
-		const self = this;
 		this.auth0.client.userInfo(accessToken, (err, profile) => {
 			if (profile) {
-				profile = profile;
-				console.log(profile);
 				localStorage.setItem('profile', JSON.stringify(profile));
+				
+				this.readUserFromLocalStorage();
 			}
-
 		});
 	}
 }
