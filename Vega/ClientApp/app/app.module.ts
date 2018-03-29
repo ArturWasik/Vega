@@ -22,6 +22,7 @@ import { ProgressService } from './services/progress.service';
 import { BrowserXhrWithProgress } from './services/progress.service';
 import { AuthService } from './services/auth.service';
 import { CallbackComponent } from './components/callback/callback.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
 	declarations: [
@@ -34,7 +35,8 @@ import { CallbackComponent } from './components/callback/callback.component';
 		VehicleListComponent,
 		PaginationComponent,
 		ViewVehicleComponent,
-		CallbackComponent
+		CallbackComponent,
+		AdminComponent
 	],
 	imports: [
 		CommonModule,
@@ -47,6 +49,7 @@ import { CallbackComponent } from './components/callback/callback.component';
 			{ path: 'vehicles/edit/:id', component: VehicleFormComponent },
 			{ path: 'vehicles/:id', component: ViewVehicleComponent },
 			{ path: 'vehicles', component: VehicleListComponent },
+			{ path: 'admin', component: AdminComponent },
 			{ path: 'home', component: HomeComponent },
 			{ path: 'counter', component: CounterComponent },
 			{ path: 'fetch-data', component: FetchDataComponent },
