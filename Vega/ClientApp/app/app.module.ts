@@ -23,6 +23,8 @@ import { BrowserXhrWithProgress } from './services/progress.service';
 import { AuthService } from './services/auth.service';
 import { CallbackComponent } from './components/callback/callback.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { AuthGuard } from './services/auth-guard.service';
+import { AdminAuthGuard } from './services/admin-auth-guard.service';
 
 @NgModule({
 	declarations: [
@@ -49,7 +51,7 @@ import { AdminComponent } from './components/admin/admin.component';
 			{ path: 'vehicles/edit/:id', component: VehicleFormComponent },
 			{ path: 'vehicles/:id', component: ViewVehicleComponent },
 			{ path: 'vehicles', component: VehicleListComponent },
-			{ path: 'admin', component: AdminComponent },
+			{ path: 'admin', component: AdminComponent, canActivate: [AdminAuthGuard] },
 			{ path: 'home', component: HomeComponent },
 			{ path: 'counter', component: CounterComponent },
 			{ path: 'fetch-data', component: FetchDataComponent },
@@ -62,7 +64,9 @@ import { AdminComponent } from './components/admin/admin.component';
 		VehicleService,
 		PhotoService,
 		ProgressService,
-		AuthService
+		AuthService,
+		AuthGuard,
+		AdminAuthGuard
 	]
 })
 export class AppModuleShared {
