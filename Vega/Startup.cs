@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Vega.Controllers;
 using Vega.Core;
 using Vega.Core.Models;
 using Vega.Persistence;
@@ -39,8 +41,25 @@ namespace Vega
 
 			services.AddDbContext<VegaDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
 
+	        services.AddAuthorization(options =>
+	        {
+				options.AddPolicy(Policies.RequireAdminRole, policy => policy.RequireClaim("https://vega.com/roles", "Admin"));
+	        });
+
 	        services.AddMvc();
-        }
+
+	        // 1. Add Authentication Services
+			services.AddAuthentication(options =>
+	        {
+		        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+		        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+	        }).AddJwtBearer(options =>
+	        {
+		        options.Authority = "https://itsolutionsproject.eu.auth0.com/";
+		        options.Audience = "dPSbfQ454nyOZsbBSI3GkUgWVECCH3nt";
+	        });
+		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -60,7 +79,10 @@ namespace Vega
 
             app.UseStaticFiles();
 
-            app.UseMvc(routes =>
+	        // 2. Enable authentication middleware
+	        app.UseAuthentication();
+
+			app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",

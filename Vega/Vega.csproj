@@ -45,6 +45,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ClientApp\assets\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 

@@ -1,7 +1,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpModule, BrowserXhr } from '@angular/http';
+import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { ToastyModule } from "ng2-toasty";
 
@@ -18,8 +18,12 @@ import { ViewVehicleComponent } from './components/view-vehicle/view-vehicle.com
 
 import { VehicleService } from './services/vehicle.service';
 import { PhotoService } from './services/photo.service';
-import { ProgressService } from './services/progress.service';
-import { BrowserXhrWithProgress } from './services/progress.service';
+import { AuthService } from './services/auth.service';
+import { CallbackComponent } from './components/callback/callback.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { AuthGuard } from './services/auth-guard.service';
+import { AdminAuthGuard } from './services/admin-auth-guard.service';
+import { AUTH_PROVIDERS } from 'angular2-jwt';
 
 @NgModule({
 	declarations: [
@@ -31,7 +35,9 @@ import { BrowserXhrWithProgress } from './services/progress.service';
 		VehicleFormComponent,
 		VehicleListComponent,
 		PaginationComponent,
-		ViewVehicleComponent
+		ViewVehicleComponent,
+		CallbackComponent,
+		AdminComponent
 	],
 	imports: [
 		CommonModule,
@@ -40,10 +46,11 @@ import { BrowserXhrWithProgress } from './services/progress.service';
 		FormsModule,
 		RouterModule.forRoot([
 			{ path: '', redirectTo: 'vehicles', pathMatch: 'full' },
-			{ path: 'vehicles/new', component: VehicleFormComponent },
-			{ path: 'vehicles/edit/:id', component: VehicleFormComponent },
+			{ path: 'vehicles/new', component: VehicleFormComponent, canActivate: [AdminAuthGuard] },
+			{ path: 'vehicles/edit/:id', component: VehicleFormComponent, canActivate: [AdminAuthGuard] },
 			{ path: 'vehicles/:id', component: ViewVehicleComponent },
 			{ path: 'vehicles', component: VehicleListComponent },
+			{ path: 'admin', component: AdminComponent, canActivate: [AdminAuthGuard] },
 			{ path: 'home', component: HomeComponent },
 			{ path: 'counter', component: CounterComponent },
 			{ path: 'fetch-data', component: FetchDataComponent },
@@ -52,10 +59,12 @@ import { BrowserXhrWithProgress } from './services/progress.service';
 	],
 	providers: [
 		{ provide: ErrorHandler, useClass: AppErrorHandler },
-		{ provide: BrowserXhr, useClass: BrowserXhrWithProgress },
 		VehicleService,
 		PhotoService,
-		ProgressService
+		AuthService,
+		AuthGuard,
+		AdminAuthGuard,
+		AUTH_PROVIDERS
 	]
 })
 export class AppModuleShared {
