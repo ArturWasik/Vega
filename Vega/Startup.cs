@@ -32,12 +32,10 @@ namespace Vega
 	        services.Configure<PhotoSettings>(Configuration.GetSection("PhotoSettings"));
 
 			services.AddScoped<IVehicleRepository, VehicleRepository>();
-
 	        services.AddScoped<IPhotoRepository, PhotoRepository>();
-
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
-
 	        services.AddTransient<IPhotoService, PhotoService>();
+	        services.AddTransient<IPhotoStorage, FileSystemPhotoStorage>();
 
 			services.AddAutoMapper();
 
