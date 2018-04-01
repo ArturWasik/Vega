@@ -3,11 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Vega.Core.Models;
 
 namespace Vega.Extensions
 {
     public static class IQueryableExtensions
     {
+	    public static IQueryable<Vehicle> ApplyFiltering(this IQueryable<Vehicle> query, VehicleQuery queryObj)
+	    {
+		    if (queryObj.MakeId.HasValue)
+		    {
+			    query = query.Where(v => v.Model.MakeId == queryObj.MakeId.Value);
+		    }
+
+		    if (queryObj.ModelId.HasValue)
+		    {
+			    query = query.Where(v => v.ModelId == queryObj.ModelId.Value);
+		    }
+
+		    return query;
+	    }
+
 	    public static IQueryable<T> ApplyOrdering<T>(this IQueryable<T> query, IQueryObject queryObj, Dictionary<string, Expression<Func<T, object>>> columnsMap)
 	    {
 		    if (String.IsNullOrWhiteSpace(queryObj.SortBy) || !columnsMap.ContainsKey(queryObj.SortBy))
