@@ -6,6 +6,7 @@ import { PhotoService } from './../../services/photo.service';
 import { ProgressService } from '../../services/progress.service';
 import { BrowserXhrWithProgress } from '../../services/progress.service';
 import { BrowserXhr } from '@angular/http';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
 	selector: 'app-view-vehicle',
@@ -24,6 +25,7 @@ export class ViewVehicleComponent implements OnInit {
 	progress: any;
 
 	constructor(
+		private auth: AuthService,
 		private zone: NgZone,
 		private route: ActivatedRoute,
 		private router: Router,
