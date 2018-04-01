@@ -1,14 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html'
+	selector: 'app-admin',
+	templateUrl: './admin.component.html'
 })
 export class AdminComponent implements OnInit {
 
-  constructor() { }
+	data = {
+		labels: ['BMW', 'Audi', 'Mazda'],
+		datasets: [
+			{
+				data: [5, 3, 1],
+				backgroundColor: [
+					"#ff6384",
+					"#36a2eb",
+					"#ffce56"
+				]
+			}
+		]
+	};
 
-  ngOnInit() {
-  }
+	constructor() { }
+
+	ngOnInit() {
+	}
 
 }

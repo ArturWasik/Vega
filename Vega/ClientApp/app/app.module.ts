@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { ToastyModule } from "ng2-toasty";
+import { ChartModule} from "angular2-chartjs";
 
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
@@ -44,6 +45,7 @@ import { AUTH_PROVIDERS } from 'angular2-jwt';
 		ToastyModule.forRoot(),
 		HttpModule,
 		FormsModule,
+		ChartModule,
 		RouterModule.forRoot([
 			{ path: '', redirectTo: 'vehicles', pathMatch: 'full' },
 			{ path: 'vehicles/new', component: VehicleFormComponent, canActivate: [AdminAuthGuard] },
