@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Vega.Controllers;
 using Vega.Core;
 using Vega.Core.Models;
 using Vega.Persistence;
@@ -39,6 +40,11 @@ namespace Vega
 			services.AddAutoMapper();
 
 			services.AddDbContext<VegaDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
+
+	        services.AddAuthorization(options =>
+	        {
+				options.AddPolicy(Policies.RequireAdminRole, policy => policy.RequireClaim("https://vega.com/roles", "Admin"));
+	        });
 
 	        services.AddMvc();
 

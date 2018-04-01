@@ -1,7 +1,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpModule, BrowserXhr } from '@angular/http';
+import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { ToastyModule } from "ng2-toasty";
 
@@ -18,8 +18,6 @@ import { ViewVehicleComponent } from './components/view-vehicle/view-vehicle.com
 
 import { VehicleService } from './services/vehicle.service';
 import { PhotoService } from './services/photo.service';
-import { ProgressService } from './services/progress.service';
-import { BrowserXhrWithProgress } from './services/progress.service';
 import { AuthService } from './services/auth.service';
 import { CallbackComponent } from './components/callback/callback.component';
 import { AdminComponent } from './components/admin/admin.component';
