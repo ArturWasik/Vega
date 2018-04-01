@@ -51,7 +51,7 @@ namespace Vega
 	        }).AddJwtBearer(options =>
 	        {
 		        options.Authority = "https://itsolutionsproject.eu.auth0.com/";
-		        options.Audience = "https://api.vega.com";
+		        options.Audience = "dPSbfQ454nyOZsbBSI3GkUgWVECCH3nt";
 	        });
 		}
 

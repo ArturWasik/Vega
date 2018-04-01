@@ -25,6 +25,7 @@ import { CallbackComponent } from './components/callback/callback.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { AuthGuard } from './services/auth-guard.service';
 import { AdminAuthGuard } from './services/admin-auth-guard.service';
+import { AUTH_PROVIDERS } from 'angular2-jwt';
 
 @NgModule({
 	declarations: [
@@ -60,13 +61,12 @@ import { AdminAuthGuard } from './services/admin-auth-guard.service';
 	],
 	providers: [
 		{ provide: ErrorHandler, useClass: AppErrorHandler },
-		{ provide: BrowserXhr, useClass: BrowserXhrWithProgress },
 		VehicleService,
 		PhotoService,
-		ProgressService,
 		AuthService,
 		AuthGuard,
-		AdminAuthGuard
+		AdminAuthGuard,
+		AUTH_PROVIDERS
 	]
 })
 export class AppModuleShared {
